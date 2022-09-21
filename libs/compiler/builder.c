@@ -1068,8 +1068,7 @@ node build_ternary_expression(builder *const bldr, node *const cond, node *const
 
 node build_initializer(builder *const bldr, node_vector *const exprs, const location l_loc, const location r_loc)
 {
-	const size_t actual_inits = node_vector_size(exprs);
-	if (actual_inits == 0)
+	if (node_vector_size(exprs) == 0)
 	{
 		semantic_error(bldr, l_loc, empty_init);
 		return node_broken();
@@ -1099,6 +1098,16 @@ node build_condition(builder *const bldr, node *const expr)
 
 	return *expr;
 }
+
+
+node build_declarator(builder *const bldr, const item_t type, const size_t name, const bool was_star
+	, node_vector *const bounds, node *const initializer)
+{
+	const size_t id = ident_add(bldr->sx, name, 0, type, 3);
+	return declaration_variable(&bldr->context, id, bounds, initializer);
+}
+
+node build_declaration(node_vector *const declarators) {return node_broken();}
 
 
 node build_case_statement(builder *const bldr, node *const expr, node *const substmt, const location case_loc)

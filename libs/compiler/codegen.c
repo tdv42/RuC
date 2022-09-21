@@ -775,7 +775,7 @@ static void emit_member_rvalue(encoder *const enc, const node *const nd)
 	// Member expression может выдать rvalue только в одном случае: слева rvalue и оператор '.'
 	const node base = expression_member_get_base(nd);
 	emit_expression(enc, &base);
-	
+
 	const item_t base_type = expression_get_type(&base);
 	const size_t member_index = expression_member_get_member_index(nd);
 
@@ -1157,7 +1157,7 @@ static void emit_void_expression(encoder *const enc, const node *const nd)
 		const size_t index = mem_get(enc, mem_size(enc) - 1) < MIN_INSTRUCTION_CODE
 			? mem_size(enc) - 2
 			: mem_size(enc) - 1;
-		
+
 		const instruction_t operation = (instruction_t)mem_get(enc, index);
 		mem_set(enc, index, instruction_to_void_ver(operation));
 	}

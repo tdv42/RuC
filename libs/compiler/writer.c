@@ -15,10 +15,10 @@
  */
 
 #include "writer.h"
-#include <string.h>
 #include "AST.h"
 #include "instructions.h"
 #include "uniprinter.h"
+#include <string.h>
 
 
 #define MAX_ELEM_SIZE	32

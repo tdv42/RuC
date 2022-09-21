@@ -60,6 +60,16 @@ builder builder_create(syntax *const sx);
  */
 bool check_assignment_operands(builder *const bldr, const item_t expected_type, node *const init);
 
+
+/*
+ *	 ______     __  __     ______   ______     ______     ______     ______     __     ______     __   __     ______
+ *	/\  ___\   /\_\_\_\   /\  == \ /\  == \   /\  ___\   /\  ___\   /\  ___\   /\ \   /\  __ \   /\ "-.\ \   /\  ___\
+ *	\ \  __\   \/_/\_\/_  \ \  _-/ \ \  __<   \ \  __\   \ \___  \  \ \___  \  \ \ \  \ \ \/\ \  \ \ \-.  \  \ \___  \
+ *	 \ \_____\   /\_\/\_\  \ \_\    \ \_\ \_\  \ \_____\  \/\_____\  \/\_____\  \ \_\  \ \_____\  \ \_\\"\_\  \/\_____\
+ *	  \/_____/   \/_/\/_/   \/_/     \/_/ /_/   \/_____/   \/_____/   \/_____/   \/_/   \/_____/   \/_/ \/_/   \/_____/
+ */
+
+
 /**
  *	Build an identifier expression
  *
@@ -259,6 +269,45 @@ node build_constant_expression(builder *const bldr, node *const expr);
  *	@return	Condition expression
  */
 node build_condition(builder *const bldr, node *const expr);
+
+
+/*
+ *	 _____     ______     ______     __         ______     ______     ______     ______   __     ______     __   __     ______
+ *	/\  __-.  /\  ___\   /\  ___\   /\ \       /\  __ \   /\  == \   /\  __ \   /\__  _\ /\ \   /\  __ \   /\ "-.\ \   /\  ___\
+ *	\ \ \/\ \ \ \  __\   \ \ \____  \ \ \____  \ \  __ \  \ \  __<   \ \  __ \  \/_/\ \/ \ \ \  \ \ \/\ \  \ \ \-.  \  \ \___  \
+ *	 \ \____-  \ \_____\  \ \_____\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\ \_\    \ \_\  \ \_\  \ \_____\  \ \_\\"\_\  \/\_____\
+ *	  \/____/   \/_____/   \/_____/   \/_____/   \/_/\/_/   \/_/ /_/   \/_/\/_/     \/_/   \/_/   \/_____/   \/_/ \/_/   \/_____/
+ */
+
+
+/**
+ *	Build a declarator
+ *
+ *	@param	bldr			AST builder
+ *	@param	type			Type of declarator
+ *	@param	name			Index of record in representations table
+ *	@param	was_star		@c true if declarator has '*' token, @c false otherwise
+ *	@param	bounds			Array bounds
+ *	@param	initializer		Initializer
+ *
+ *	@return	Declarator
+ */
+node build_declarator(builder *const bldr, const item_t type, const size_t name, const bool was_star
+	, node_vector *const bounds, node *const initializer);
+
+/**
+ 
+ */
+node build_declaration(node_vector *const declarators);
+
+
+/*
+ *	 ______     ______   ______     ______   ______     __    __     ______     __   __     ______   ______
+ *	/\  ___\   /\__  _\ /\  __ \   /\__  _\ /\  ___\   /\ "-./  \   /\  ___\   /\ "-.\ \   /\__  _\ /\  ___\
+ *	\ \___  \  \/_/\ \/ \ \  __ \  \/_/\ \/ \ \  __\   \ \ \-./\ \  \ \  __\   \ \ \-.  \  \/_/\ \/ \ \___  \
+ *	 \/\_____\    \ \_\  \ \_\ \_\    \ \_\  \ \_____\  \ \_\ \ \_\  \ \_____\  \ \_\\"\_\    \ \_\  \/\_____\
+ *	  \/_____/     \/_/   \/_/\/_/     \/_/   \/_____/   \/_/  \/_/   \/_____/   \/_/ \/_/     \/_/   \/_____/
+ */
 
 
 /**

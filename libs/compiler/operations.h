@@ -117,8 +117,6 @@ typedef enum PRECEDENCE
 /** AST node kinds */
 typedef enum OPERATION
 {
-	OP_NOP,
-	
 	// Expressions
 	OP_IDENTIFIER,			/**< Identifier node */
 	OP_LITERAL,				/**< Literal node */
@@ -135,6 +133,7 @@ typedef enum OPERATION
 	// Statements
 	OP_CASE,				/**< Case statement node */
 	OP_DEFAULT,				/**< Default statement node */
+	OP_NOP,					/**< Null statement */
 	OP_BLOCK,				/**< Compound statement node */
 	OP_IF,					/**< If statement node */
 	OP_SWITCH,				/**< Switch statement node */

@@ -1035,6 +1035,20 @@ size_t declaration_type_get_id(const node *const nd);
 
 
 /**
+ *	Create new variable declaration
+ *
+ *	@param	context			Context node
+ *	@param	id				Index in identifiers table
+ *	@param	bounds			Bounds expressions
+ *	@param	initializer		Inititializer
+ *	@param	loc				Declaration location
+ *
+ *	@return	Return statement
+ */
+node declaration_variable(node *const context, const size_t id, node_vector *const bounds
+	, node *const initializer, const location loc);
+
+/**
  *	Get variable id in variable declaration
  *
  *	@param	nd				Variable declaration

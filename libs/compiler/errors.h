@@ -46,6 +46,7 @@ typedef enum ERROR
 	expected_colon_in_conditional_expr,		/**< Expected ':' in conditional expression */
 	empty_initializer,						/**< Empty initializer */
 	expected_l_paren_in_condition,			/**< Expected '(' in condition */
+	expected_identifier_in_declarator,
 	case_not_in_switch,						/**< 'case' statement not in switch statement */
 	default_not_in_switch,					/**< 'default' statement not in switch statement */
 	expected_colon_after_case,				/**< Expected ':' after 'case' */

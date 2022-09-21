@@ -914,6 +914,33 @@ size_t declaration_type_get_id(const node *const nd)
 }
 
 
+node declaration_variable(node *const context, const size_t id, node_vector *const bounds
+   , node *const initializer, const location loc)
+{
+	node nd = node_create(context, OP_DECL_VAR);
+	node_add_arg(&nd, (item_t)id);					// ID объявляемой переменной
+	node_add_arg(&nd, initializer ? 1 : 0);			// Имеет ли инициализатор
+	node_add_arg(&nd, (item_t)loc.begin);			// Начальная позиция объявления
+	node_add_arg(&nd, (item_t)loc.end);				// Конечная позиция объявления
+
+	if (node_vector_is_correct(bounds))
+	{
+		const size_t amount = node_vector_size(bounds);
+		for (size_t i = 0; i < amount; i++)
+		{
+			node item = node_vector_get(bounds, i);
+			node_set_child(&nd, &item);				// i-ая граница массива
+		}
+	}
+
+	if (node_is_correct(initializer))
+	{
+		node_set_child(&nd, initializer);			// Инициализатор
+	}
+
+	return nd;
+}
+
 size_t declaration_variable_get_id(const node *const nd)
 {
 	assert(node_get_type(nd) == OP_DECL_VAR);
@@ -923,7 +950,7 @@ size_t declaration_variable_get_id(const node *const nd)
 bool declaration_variable_has_initializer(const node *const nd)
 {
 	assert(node_get_type(nd) == OP_DECL_VAR);
-	return node_get_arg(nd, 2) != 0;
+	return node_get_arg(nd, 1) != 0;
 }
 
 node declaration_variable_get_initializer(const node *const nd)
