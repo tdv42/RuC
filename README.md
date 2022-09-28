@@ -5,30 +5,83 @@
 Авторство принадлежит [Андрею Николаевичу Терехову](https://github.com/andrey-terekhov),
 заведующему кафедрой "Системного программирования" СПбГУ.
 
-## Сборка
+# Сборка
 
-При первоначальном использовании необходимо установить некоторые утилиты:
-```
-$ sudo apt-get -y install git gcc g++ cmake clang-tidy clang-format-9
+## Под ОС Ubuntu
+
+С клонируйте репозиторий по общедоступной ссылке:
+
+```cmd
+$ git clone https://github.com/andrey-terekhov/RuC
 ```
 
-Для конфигурирования и сборки репозитория воспользуйтесь:
+Либо с сервера компании:
+
+```cmd
+$ git clone ssh://git@gitlab.softcom.su:22500/ruc/ruc.git
 ```
-$ mkdir build && cd build && cmake .. && cd ..
+
+Для конфигурирования и сборки, войдите в каталог и воспользуйтесь:
+
+```cmd
+$ mkdir -p build && cd build && cmake .. && cd ..
 $ cmake --build build --config Release
 ```
 
-P.s. Если вы собирали Debug версию, не забудьте вернуть `-DCMAKE_BUILD_TYPE=Release`
+### Полезные команды Git
 
-## Использование
+Сохранение аутентификационных данных репозитория:
 
-Установить сборку в систему можно одной из следующих команд:
-```
-$ cmake --install build --config Release
-$ cmake --install build --prefix path/to/install --config Release
+```cmd
+$ git config credential.helper store
 ```
 
-Так как в сборке используется CMake, имеется возможность генерации проекта для IDE, например Xcode:
+Соединение локального репозитория с оригинальным:
+
+```cmd
+$ git remote add upstream https://github.com/andrey-terekhov/RuC
+$ git remote set-url --push upstream DISABLE
 ```
-$ cmake . -G Xcode
+
+Стягивание изменений:
+
+```cmd
+$ git fetch upstream
+$ git rebase upstream/master
 ```
+
+## Под ОС Windows
+
+Перед сборкой и использованием языка РуСи, необходимо установить систему сборки [CMake](https://cmake.org/download/) и компилятор языка С/С++ от Microsoft, входящий в состав [Visual Studio](https://visualstudio.microsoft.com/ru/thank-you-downloading-visual-studio/?sku=Community&rel=16#).
+
+Прямые ссылки на загрузку: [CMake 3.17.3 x64](https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3-win64-x64.msi), [CMake 3.17.3 x86](https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3-win32-x86.msi).
+
+При установке CMake, также необходимо отметить любой из пунктов `Add CMake to the system PATH`, как показано на картинке.
+
+![CMake](uploads/b0ec5abbdb1c3d45166b2c141455523f/CMake.png)
+
+А при установке Visual Studio, необходимо добавить в сборку `Разработка классических приложений на C++`.
+
+![C++](uploads/4ece3aa315a2deeb0757317d8223c502/C++.png)
+
+После этого можно приступить к сборке проекта. Скачайте проект любым git клиентом, например, [Git BASH](https://gitforwindows.org/) и откройте папку проекта из Windows.
+
+Для первоначальной настройки проекта введите команду:
+
+```cmd
+$ mkdir build && cd build && cmake .. && cd ..
+```
+
+Для сборки/пересборки проекта используйте, вызываемую из корня:
+
+```cmd
+$ cmake --build build --config Release
+```
+
+Исполняемый файл `ruc.exe` будет помещен в директорию `build\Release`. При запуске ему необходимо передать путь к РуСи коду в качестве параметра. При указании пути к коду используйте только прямой слеш (`/`)! Пример:
+
+```cmd
+$ ruc.exe ../../tests/test.c
+```
+
+Сгенерированные коды будут помещены в папку, из которой был вызван транслятор.
