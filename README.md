@@ -85,3 +85,54 @@ $ ruc.exe ../../tests/test.c
 ```
 
 Сгенерированные коды будут помещены в папку, из которой был вызван транслятор.
+
+# Параметры командной строки
+
+## Компилятор
+
+Компилятор РуСи поддерживает параметризацию из командной строки, порядок не важен, повторения игнорируются. В качестве параметров можно передавать:
+- Пути к файлам
+- Пути к библиотекам
+- Флаги компиляции
+- Примитивные макросы <mark>(в будущем)</mark>
+
+Общие флаги:
+- `-o` - флаг переопределения выходного файла (использование `-o export.txt`)
+- `-I` - флаг поиска библиотек (использование `-Ipath/to/headers`)
+- `-D` - <mark>флаг предопределенного макроса (использование `-DVAR=1024`, эквивалентно `#define VAR 1024`)</mark>
+- `-Wno` - флаг отключения восстановления после ошибок
+
+Флаги виртуальной машины:
+- `-VM` - флаг компиляции в коды виртуальной машины РуСи (по умолчанию)
+- Флаги сжатия выходных таблиц
+  - `-i64`, `-i32`, `-i16`, `-i8` - использование знаковых типов, размера **8**, **4**, **2** и **1** байт
+  - `-u64`, `-u32`, `-u16`, `-u8` - использование беззнаковых типов, соответственно
+
+Флаги LLVM:
+- `-LLVM` - флаг компиляции в LLVM коды
+- `--x86_64` - флаг целевой платформы Intel (по умолчанию)
+- `--mipsel` - флаг целевой платформы MIPS
+
+## Тестовая система
+
+```bash
+Usage: ./test.sh [KEY] ...
+Description:
+        This script tests all files from "../tests" directory.
+        Folder "../tests/errors" should contain tests with expected error.
+        Executable tests should be in "../tests/executable" directory.
+        To ignore invalid tests output, use "*/warnings/*" subdirectory.
+        For tests with expected runtime error, use "*/errors/*" subdirectory.
+        For multi-file tests, use "*/include/*" subdirectory.
+        Failed tests for debug build only will be marked with "(Debug)".
+Keys:
+        -h, --help      To output help info.
+        -s, --silence   For silence testing.
+        -f, --fast      Fast testing, Release builds only.
+        -i, --ignore    Ignore errors & executing stages.
+        -r, --remove    Remove build folder before testing.
+        -d, --debug     Switch on debug tracing.
+        -v, --virtual   Set RuC virtual machine release.
+        -o, --output    Set output printing time (default = 0.0).
+        -w, --wait      Set waiting time for timeout result (default = 2).
+```
